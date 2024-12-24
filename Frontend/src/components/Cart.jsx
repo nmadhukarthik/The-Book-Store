@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import Checkout from "./Checkout";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks } from "../features/booksSlice";
-import { useAuth } from "../context/AuthProvider";
-// import axios from 'axios'
+import { fetchBooks } from "../redux/thunk";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -12,21 +10,9 @@ const Cart = () => {
         loading,
         error,
     } = useSelector((state) => state.books);
-    // const [books, setBooks] = useState([])
-    // const [loading, setLoading] = useState(true)
-    const [, , , removeFromCart, cartItems, setCartItems] = useAuth();
-
-    // const getBookList = async () => {
-
-    //     try {
-    //         const res = await axios.get("https://book-store-8vla.onrender.com/book")
-    //         console.log(res)
-    //         setBooks(res.data)
-    //         setLoading(false)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const { items: cartItems, removeFromCart } = useSelector(
+        (state) => state.cart
+    );
 
     useEffect(() => {
         dispatch(fetchBooks());
@@ -97,16 +83,15 @@ const Cart = () => {
                                             <p className="p-3">
                                                 $ {item.price}
                                             </p>
-                                            <p>{cartItems[item._id]}</p>
-                                            <p>
-                                                $
-                                                {item.price *
-                                                    cartItems[item._id]}
-                                            </p>
+                                            {/* <p>{cartItems[item._id]}</p> */}
+                                            <p>{quantity}</p>
+                                            <p>${item.price * quantity}</p>
                                             <p
                                                 className="cursor-pointer"
                                                 onClick={() => {
-                                                    removeFromCart(item._id);
+                                                    useDispatch(
+                                                        removeFromCart(item._id)
+                                                    );
                                                 }}
                                             >
                                                 {" "}

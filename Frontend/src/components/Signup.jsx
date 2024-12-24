@@ -12,7 +12,6 @@ const Signup = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || "/";
-    //console.log(window.location)
     const {
         register,
         handleSubmit,
@@ -27,8 +26,8 @@ const Signup = () => {
         };
 
         await axios
-            .post("https://book-store-8vla.onrender.com/user/signup", userInfo)
-            // .post("http://localhost:4001/user/signup", userInfo)
+            // .post("https://book-store-8vla.onrender.com/user/signup", userInfo)
+            .post("http://localhost:4001/user/signup", userInfo)
             .then((res) => {
                 console.log(res.data);
                 if (res.data) {
