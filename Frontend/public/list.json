@@ -1,0 +1,102 @@
+[
+
+    {
+        "id" : 1,
+        "name": "Arts Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 50,
+        "category": "Arts",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 2,
+        "name": "Comedy Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 20,
+        "category": "Entertainment",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 3,
+        "name": "Sports Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 400,
+        "category": "Sports",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 4,
+        "name": "Music Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 50,
+        "category": "Music",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 5,
+        "name": "Recipe Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 100,
+        "category": "Recipe",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 6,
+        "name": "Story Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 0,
+        "category": "Free",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 7,
+        "name": "Story Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 0,
+        "category": "Free",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 8,
+        "name": "Story Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 0,
+        "category": "Free",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 9,
+        "name": "Story Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 0,
+        "category": "Free",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 10,
+        "name": "Story Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 0,
+        "category": "Free",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    },
+
+    {
+        "id" : 11,
+        "name": "Story Book",
+        "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "price": 0,
+        "category": "Free",
+        "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?t=st=1727858086~exp=1727861686~hmac=51988391a0a1e0d712d9bf29deee7159bba08b5f15bf99b999c82f3a9d5f13c2&w=740"
+    }
+
+]
