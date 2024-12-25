@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import Checkout from "./Checkout";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../redux/thunk";
+import { removeFromCart } from "../redux/cartSlice";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -10,13 +11,10 @@ const Cart = () => {
         loading,
         error,
     } = useSelector((state) => state.books);
-    const { items: cartItems, removeFromCart } = useSelector(
-        (state) => state.cart
-    );
+    const { items: cartItems } = useSelector((state) => state.cart);
 
     useEffect(() => {
         dispatch(fetchBooks());
-        // getBookList()
     }, []);
 
     const getTotalCartAmount = useMemo(() => {
@@ -25,22 +23,6 @@ const Cart = () => {
             return item ? total + item.price * quantity : total;
         }, 0);
     }, [books, cartItems]);
-
-    // const getTotalCartAmount = () => {
-    //     let totalAmount = 0
-    //     console.log(cartItems)
-    //     // console.log(typeof(cartItems))
-    //     for (const item in cartItems) {
-    //         console.log(books)
-    //         if (cartItems[item] > 0) {
-    //             // console.log("inside if")
-    //             let itemInfo = books.find((product) => product._id === item)
-    //             console.log(itemInfo)
-    //             totalAmount += itemInfo.price * cartItems[item]
-    //         }
-    //     }
-    //     return totalAmount
-    // }
 
     {
         if (loading) {
@@ -68,7 +50,8 @@ const Cart = () => {
 
                     {books &&
                         books.map((item) => {
-                            if (cartItems[item._id] > 0) {
+                            const quantity = cartItems[item._id];
+                            if (quantity > 0) {
                                 return (
                                     <>
                                         <div className=" m-5 p-5  grid grid-cols-5 items-center w-full ">
@@ -89,7 +72,7 @@ const Cart = () => {
                                             <p
                                                 className="cursor-pointer"
                                                 onClick={() => {
-                                                    useDispatch(
+                                                    dispatch(
                                                         removeFromCart(item._id)
                                                     );
                                                 }}

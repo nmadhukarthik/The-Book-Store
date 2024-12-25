@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import { addToCart, decrementQuantity } from "../redux/cartSlice";
 function Cards({ item }) {
     const dispatch = useDispatch();
-    const { addToCart, decrementQuantity } = useSelector((state) => state.cart);
+
+    const { items: cartItems } = useSelector((state) => state.cart);
     return (
         <>
             <div className="mt-4 my-3 p-3">

@@ -45,12 +45,9 @@ const Course = () => {
                                 </span>
                             </h1>
                             <p className="mt-12">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Rem non doloribus odit error
-                                quos nam molestias veritatis amet ex! Nulla
-                                accusantium assumenda, velit dicta sed
-                                laboriosam officiis aliquam architecto
-                                aspernatur.
+                                Hurry up!! Buy your favourite books as long as
+                                the stocks last. Visit again later to know about
+                                the new arrivals!
                             </p>
                             <Link to="/">
                                 <button className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-700 duration-300 mt-6">
