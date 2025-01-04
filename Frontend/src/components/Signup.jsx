@@ -139,6 +139,7 @@ const Signup = () => {
                             </div>
 
                             {/* button */}
+                            {/* <Login/> */}
                             <div className="mt-4 flex justify-around">
                                 <button className="bg-orange-500 text-white rounded-md px-3 py-1 hover:bg-orange-700 duration-200">
                                     {" "}
@@ -147,14 +148,15 @@ const Signup = () => {
                                 <p className="text-xl">
                                     Have Account?
                                     <Link
-                                        to={"/"}
                                         className="underline text-blue-500 cursor-pointer"
+                                        onClick={() =>
+                                            document
+                                                .getElementById("my_modal_3")
+                                                .showModal()
+                                        }
                                     >
-                                        {/* // onClick={() => document.getElementById("my_modal_3").showModal()} */}
-                                        {/* // onClick={()=>navigate("/")}> */}
                                         Login
                                     </Link>
-                                    {/* <Login/> */}
                                 </p>
                             </div>
 

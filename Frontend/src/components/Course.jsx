@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Course = () => {
     //  const paidBooks = list.filter((book) => book.category !== "Free")
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const {
         items: books,
         loading,
         error,
     } = useSelector((state) => state.books);
 
-    useEffect(() => {
-        dispatch(fetchBooks());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchBooks());
+    // }, []);
 
     {
         if (loading) {
