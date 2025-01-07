@@ -1,8 +1,9 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import Checkout from "./Checkout";
 import { useAuth } from "../context/AuthProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../redux/cartSlice";
+import { fetchCart } from "../redux/cartThunk";
 
 const Cart = () => {
     const [authUser, setAuthUser] = useAuth();
@@ -11,22 +12,46 @@ const Cart = () => {
     if (!userId) {
         return <div>Please log in to view your cart.</div>;
     }
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(fetchCart(userId));
+        }
+    }, [userId, dispatch]);
+
     const {
         items: books,
         loading,
         error,
     } = useSelector((state) => state.books);
-    const { items: cartItems } = useSelector((state) => state.cart);
+    // const { items: cartItems } = useSelector((state) => state.cart);
     // (state) => state.cart[userId] || {});
-    console.log(cartItems);
 
+    // const userCart = useSelector((state) => selectUserCart(state, userId));
+    const cartItems = useSelector(
+        (state) => state.cart.userCarts[userId] || { items: {} }
+    );
+    // const selectUserCart = (state, userId) =>
+    //     state.cart.userCarts[userId] || { items: {}, totalQuantity: 0 };
+    console.log(cartItems);
     const totalCartAmount = useMemo(() => {
-        return Object.entries(cartItems).reduce((total, [itemId, quantity]) => {
-            const item = books.find((book) => book._id === itemId);
-            return item ? total + item.price * quantity : total;
-        }, 0);
+        return Object.entries(cartItems?.items || {}).reduce(
+            (total, [itemId, quantity]) => {
+                const item = books.find((book) => book._id === itemId);
+                return item ? total + item.price * quantity : total;
+            },
+            0
+        );
     }, [books, cartItems]);
+
+    // const totalCartAmount = useMemo(() => {
+    //     return Object.entries(cartItems).reduce((total, [itemId, quantity]) => {
+    //         const item = books.find((book) => book._id === itemId);
+    //         return item ? total + item.price * quantity : total;
+    //     }, 0);
+    // }, [books, cartItems]);
 
     const deliveryFee = totalCartAmount === 0 ? 0 : 2;
 
@@ -35,7 +60,7 @@ const Cart = () => {
             return <div>Loading....</div>;
         }
 
-        if (error || Object.keys(cartItems).length === 0) {
+        if (error || Object.keys(cartItems?.items || {}).length === 0) {
             return (
                 <div className="mt-40 bg-orange-300 w-96 h-24 p-8 rounded-md text-center m-auto text-xl">
                     {error
@@ -45,7 +70,9 @@ const Cart = () => {
             );
         }
 
-        const filteredBooks = books.filter((book) => cartItems[book._id] > 0);
+        const filteredBooks = books.filter(
+            (book) => cartItems.items[book._id] > 0
+        );
 
         return (
             <div className="mt-16 max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -73,18 +100,17 @@ const Cart = () => {
                                 <p>{item.name}</p>
                             </div>
                             <p className="p-3">${item.price}</p>
-                            <p>{cartItems[item._id]}</p>
-                            <p>${item.price * cartItems[item._id]}</p>
+                            <p>{cartItems.items[item._id]}</p>
+                            <p>${item.price * cartItems.items[item._id]}</p>
                             <p
                                 className="cursor-pointer"
-                                onClick={
-                                    () => dispatch(removeFromCart(item._id))
-                                    // dispatch(
-                                    //     removeFromCart({
-                                    //         userId,
-                                    //         itemId: item._id,
-                                    //     })
-                                    //)
+                                onClick={() =>
+                                    dispatch(
+                                        removeFromCart({
+                                            userId,
+                                            productId: item._id,
+                                        })
+                                    )
                                 }
                             >
                                 X

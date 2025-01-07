@@ -1,9 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
+// import { addToCart, decrementQuantity } from "../redux/cartSlice";
+import { useAuth } from "../context/AuthProvider";
 import { addToCart, decrementQuantity } from "../redux/cartSlice";
 function Cards({ item }) {
     const dispatch = useDispatch();
+    const [authUser, setAuthUser] = useAuth();
+    const userId = authUser._id;
+    console.log(userId);
+    if (!userId) {
+        return <div>Please login to add items to the cart.</div>;
+    }
 
-    const { items: cartItems } = useSelector((state) => state.cart);
+    const { cartItems } = useSelector((state) => state.cart.userCarts[userId]);
     return (
         <>
             <div className="mt-4 my-3 p-3">
@@ -28,7 +36,12 @@ function Cards({ item }) {
                                     !cartItems[item._id] ? (
                                         <button
                                             onClick={() =>
-                                                dispatch(addToCart(item._id))
+                                                dispatch(
+                                                    addToCart({
+                                                        userId,
+                                                        productId: item._id,
+                                                    })
+                                                )
                                             }
                                         >
                                             +
@@ -38,9 +51,10 @@ function Cards({ item }) {
                                             <button
                                                 onClick={() =>
                                                     dispatch(
-                                                        decrementQuantity(
-                                                            item._id
-                                                        )
+                                                        decrementQuantity({
+                                                            userId,
+                                                            productId: item._id,
+                                                        })
                                                     )
                                                 }
                                             >
@@ -50,7 +64,10 @@ function Cards({ item }) {
                                             <button
                                                 onClick={() =>
                                                     dispatch(
-                                                        addToCart(item._id)
+                                                        addToCart({
+                                                            userId,
+                                                            productId: item._id,
+                                                        })
                                                     )
                                                 }
                                             >

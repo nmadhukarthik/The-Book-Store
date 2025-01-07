@@ -5,6 +5,7 @@ import clc from "cli-color";
 import cors from "cors";
 import { router as bookRoute } from "./route/book.route.js";
 import { router as userRoute } from "./route/user.route.js";
+import { router as cartRoute } from "./route/cart.route.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ try {
 //defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
+app.use("/cart", cartRoute);
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
