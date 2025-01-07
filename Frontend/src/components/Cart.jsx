@@ -2,8 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import Checkout from "./Checkout";
 import { useAuth } from "../context/AuthProvider";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../redux/cartSlice";
-import { fetchCart } from "../redux/cartThunk";
+import { fetchCart, removeFromCart } from "../redux/cartThunk";
 
 const Cart = () => {
     const [authUser, setAuthUser] = useAuth();
@@ -26,32 +25,21 @@ const Cart = () => {
         loading,
         error,
     } = useSelector((state) => state.books);
-    // const { items: cartItems } = useSelector((state) => state.cart);
-    // (state) => state.cart[userId] || {});
 
-    // const userCart = useSelector((state) => selectUserCart(state, userId));
-    const cartItems = useSelector(
-        (state) => state.cart.userCarts[userId] || { items: {} }
-    );
-    // const selectUserCart = (state, userId) =>
-    //     state.cart.userCarts[userId] || { items: {}, totalQuantity: 0 };
+    const userCarts = useSelector((state) => state.cart.userCarts || {});
+    console.log("User Carts:", userCarts); // Debugging step
+
+    const cartItems = userCarts[userId]?.items || {};
+    console.log("Cart Items:", cartItems); // Debugging step
+
     console.log(cartItems);
-    const totalCartAmount = useMemo(() => {
-        return Object.entries(cartItems?.items || {}).reduce(
-            (total, [itemId, quantity]) => {
-                const item = books.find((book) => book._id === itemId);
-                return item ? total + item.price * quantity : total;
-            },
-            0
-        );
-    }, [books, cartItems]);
 
-    // const totalCartAmount = useMemo(() => {
-    //     return Object.entries(cartItems).reduce((total, [itemId, quantity]) => {
-    //         const item = books.find((book) => book._id === itemId);
-    //         return item ? total + item.price * quantity : total;
-    //     }, 0);
-    // }, [books, cartItems]);
+    const totalCartAmount = useMemo(() => {
+        return cartItems.reduce((total, cartItem) => {
+            const item = books.find((book) => book._id === cartItem.productId);
+            return item ? total + item.price * cartItem.quantity : total;
+        }, 0);
+    }, [books, cartItems]);
 
     const deliveryFee = totalCartAmount === 0 ? 0 : 2;
 
@@ -60,7 +48,7 @@ const Cart = () => {
             return <div>Loading....</div>;
         }
 
-        if (error || Object.keys(cartItems?.items || {}).length === 0) {
+        if (error || cartItems.length === 0) {
             return (
                 <div className="mt-40 bg-orange-300 w-96 h-24 p-8 rounded-md text-center m-auto text-xl">
                     {error
@@ -70,9 +58,12 @@ const Cart = () => {
             );
         }
 
-        const filteredBooks = books.filter(
-            (book) => cartItems.items[book._id] > 0
-        );
+        const filteredBooks = cartItems
+            .map((cartItem) => {
+                //cartitems is an array
+                return books.find((book) => book._id === cartItem.productId);
+            })
+            .filter(Boolean); // Remove any `undefined` values
 
         return (
             <div className="mt-16 max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -86,37 +77,42 @@ const Cart = () => {
                 <hr />
 
                 {filteredBooks.length > 0 ? (
-                    filteredBooks.map((item) => (
-                        <div
-                            key={item._id}
-                            className="m-5 p-5 grid grid-cols-5 items-center w-full"
-                        >
-                            <div>
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="max-w-15 max-h-20"
-                                />
-                                <p>{item.name}</p>
-                            </div>
-                            <p className="p-3">${item.price}</p>
-                            <p>{cartItems.items[item._id]}</p>
-                            <p>${item.price * cartItems.items[item._id]}</p>
-                            <p
-                                className="cursor-pointer"
-                                onClick={() =>
-                                    dispatch(
-                                        removeFromCart({
-                                            userId,
-                                            productId: item._id,
-                                        })
-                                    )
-                                }
+                    filteredBooks.map((item) => {
+                        const cartItem = cartItems.find(
+                            (ci) => ci.productId === item._id
+                        );
+                        return (
+                            <div
+                                key={item._id}
+                                className="m-5 p-5 grid grid-cols-5 items-center w-full"
                             >
-                                X
-                            </p>
-                        </div>
-                    ))
+                                <div>
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="max-w-15 max-h-20"
+                                    />
+                                    <p>{item.name}</p>
+                                </div>
+                                <p className="p-3">${item.price}</p>
+                                <p>{cartItem?.quantity || 0}</p>
+                                <p>${item.price * (cartItem?.quantity || 0)}</p>
+                                <p
+                                    className="cursor-pointer"
+                                    onClick={() =>
+                                        dispatch(
+                                            removeFromCart({
+                                                userId,
+                                                productId: item._id,
+                                            })
+                                        )
+                                    }
+                                >
+                                    X
+                                </p>
+                            </div>
+                        );
+                    })
                 ) : (
                     <div className="m-auto text-center">
                         Add items to the cart
@@ -126,7 +122,6 @@ const Cart = () => {
 
                 <div className="w-80 m-auto">
                     <h1 className="p-5 text-xl font-bold">Cart Total</h1>
-
                     <div className="flex justify-between p-5">
                         <p>Subtotal</p>
                         <p>${totalCartAmount}</p>

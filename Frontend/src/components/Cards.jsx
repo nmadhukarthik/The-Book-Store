@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 // import { addToCart, decrementQuantity } from "../redux/cartSlice";
 import { useAuth } from "../context/AuthProvider";
-import { addToCart, decrementQuantity } from "../redux/cartSlice";
+import { addToCart, decrementQuantity } from "../redux/cartThunk";
 function Cards({ item }) {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useAuth();
@@ -10,8 +10,17 @@ function Cards({ item }) {
     if (!userId) {
         return <div>Please login to add items to the cart.</div>;
     }
+    // Ensure userCarts exists
+    const userCarts = useSelector((state) => state.cart.userCarts || {});
+    console.log("User Carts:", userCarts); // Debugging step
+    // Ensure cartItems is an array
+    const cartItems = userCarts[userId]?.items || [];
+    console.log("Cart Items:", cartItems); // Debugging step
+    // Find the item in the cart
+    const cartItem = cartItems.find(
+        (cartItem) => cartItem.productId === item._id
+    );
 
-    const { cartItems } = useSelector((state) => state.cart.userCarts[userId]);
     return (
         <>
             <div className="mt-4 my-3 p-3">
@@ -31,9 +40,7 @@ function Cards({ item }) {
                             </div>
                             <div className=" border-gray text-black cursor-pointer px-2 rounded-full border-[2px] hover:bg-orange-400 hover:text-white duration-200  dark:text-white">
                                 <div>
-                                    {item &&
-                                    cartItems &&
-                                    !cartItems[item._id] ? (
+                                    {!cartItem ? (
                                         <button
                                             onClick={() =>
                                                 dispatch(
@@ -60,7 +67,7 @@ function Cards({ item }) {
                                             >
                                                 -
                                             </button>
-                                            <p>{cartItems[item._id]}</p>
+                                            <p>{cartItem?.quantity}</p>
                                             <button
                                                 onClick={() =>
                                                     dispatch(

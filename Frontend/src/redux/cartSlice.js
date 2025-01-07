@@ -14,9 +14,11 @@ const cartSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchCart.fulfilled, (state, action) => {
+                if (!state.userCarts) state.userCarts = {};
                 state.userCarts[action.payload.userId] = action.payload;
             })
             .addCase(addToCart.fulfilled, (state, action) => {
+                if (!state.userCarts) state.userCarts = {};
                 if (state.userCarts[action.payload.userId]) {
                     state.userCarts[action.payload.userId].items =
                         action.payload.items;
@@ -28,6 +30,7 @@ const cartSlice = createSlice({
             })
 
             .addCase(decrementQuantity.fulfilled, (state, action) => {
+                if (!state.userCarts) state.userCarts = {};
                 if (state.userCarts[action.payload.userId]) {
                     state.userCarts[action.payload.userId].items =
                         action.payload.items;
@@ -36,6 +39,7 @@ const cartSlice = createSlice({
                 }
             })
             .addCase(removeFromCart.fulfilled, (state, action) => {
+                if (!state.userCarts) state.userCarts = {};
                 if (state.userCarts[action.payload.userId]) {
                     state.userCarts[action.payload.userId].items =
                         action.payload.items;
@@ -44,6 +48,7 @@ const cartSlice = createSlice({
                 }
             })
             .addCase(clearCart.fulfilled, (state, action) => {
+                if (!state.userCarts) state.userCarts = {};
                 state.userCarts[action.payload.userId] = {
                     items: {},
                     totalQuantity: 0,

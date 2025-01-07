@@ -1,16 +1,15 @@
-import cart from "../model/cart.model";
+import cart from "../model/cart.model.js";
+import { calculateTotalQuantity } from "../utils/cartUtils.js";
 
 export const getUserCart = async (req, res) => {
     try {
         const { userId } = req.params;
         const Cart = await cart.findOne({ userId }).populate("items.productId");
         if (!Cart) return res.json({ items: [], totalQuantity: 0 });
-        // Calculate total quantity
-        const totalQuantity = Cart.items.reduce(
-            (sum, item) => sum + item.quantity,
-            0
-        );
-        res.json({ ...Cart.toObject(), totalQuantity });
+        res.json({
+            ...Cart.toObject(),
+            totalQuantity: calculateTotalQuantity(Cart),
+        });
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error" });
     }
@@ -34,11 +33,10 @@ export const addToCart = async (req, res) => {
             Cart.items.push({ productId, quantity: 1 });
         }
         await Cart.save();
-        const totalQuantity = Cart.items.reduce(
-            (sum, item) => sum + item.quantity,
-            0
-        );
-        res.json({ ...Cart.toObject(), totalQuantity });
+        res.json({
+            ...Cart.toObject(),
+            totalQuantity: calculateTotalQuantity(Cart),
+        });
     } catch (error) {
         res.status(500).json({ message: "Error adding to cart" });
     }
@@ -64,11 +62,10 @@ export const decrementCartItem = async (req, res) => {
                 Cart.items.splice(itemIndex, 1); // Remove item if quantity reaches zero
             }
             await Cart.save();
-            const totalQuantity = Cart.items.reduce(
-                (sum, item) => sum + item.quantity,
-                0
-            );
-            res.json({ ...Cart.toObject(), totalQuantity });
+            res.json({
+                ...Cart.toObject(),
+                totalQuantity: calculateTotalQuantity(Cart),
+            });
         } else {
             return res.status(404).json({ message: "Item not found in cart" });
         }
@@ -88,11 +85,10 @@ export const removeFromCart = async (req, res) => {
             (item) => item.productId.toString() !== productId
         );
         await Cart.save();
-        const totalQuantity = Cart.items.reduce(
-            (sum, item) => sum + item.quantity,
-            0
-        );
-        res.json({ ...Cart.toObject(), totalQuantity });
+        res.json({
+            ...Cart.toObject(),
+            totalQuantity: calculateTotalQuantity(Cart),
+        });
     } catch (error) {
         res.status(500).json({ message: "Error removing item" });
     }
