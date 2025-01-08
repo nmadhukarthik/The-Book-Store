@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Home/Home";
@@ -14,6 +14,9 @@ import { fetchBooks } from "./redux/thunk.js";
 
 const App = () => {
     const dispatch = useDispatch();
+
+    const [searchQuery, setSearchQuery] = useState("");
+
     const [authUser, setAuthUser] = useAuth();
 
     useEffect(() => {
@@ -33,7 +36,7 @@ const App = () => {
         <>
             <div className="min-h-screen flex flex-col dark:bg-slate-900 dark:text-white">
                 <header>
-                    <Navbar />
+                    <Navbar updateSearchQuery={setSearchQuery} />
                 </header>
 
                 <main className="flex-grow">
@@ -43,7 +46,7 @@ const App = () => {
                             path="/course"
                             element={
                                 authUser ? (
-                                    <Courses />
+                                    <Courses searchQuery={searchQuery} />
                                 ) : (
                                     <Navigate to="/signup" />
                                 )

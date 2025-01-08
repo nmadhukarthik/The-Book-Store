@@ -3,17 +3,20 @@ import Cards from "./Cards";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Course = () => {
+const Course = ({ searchQuery }) => {
     const {
         items: books,
         loading,
         error,
     } = useSelector((state) => state.books);
 
+    const filteredBooks = books.filter((book) =>
+        book.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     {
         if (loading) {
             return <div>Loading....</div>;
-        } else if (error || books.length === 0) {
+        } else if (error || books.length === 0 || filteredBooks.length === 0) {
             return (
                 <div className="mt-40 bg-orange-300 w-96 h-24 p-8 rounded-md text-center m-auto text-xl">
                     {error
@@ -50,9 +53,11 @@ const Course = () => {
                         </div>
 
                         <div className="mt-12 grid grid-cols-1 md:grid-cols-4 ">
-                            {books.map((item) => (
-                                <Cards key={item._id} item={item} />
-                            ))}
+                            {(filteredBooks ? filteredBooks : books).map(
+                                (item) => (
+                                    <Cards key={item._id} item={item} />
+                                )
+                            )}
                         </div>
                     </div>
                 </>

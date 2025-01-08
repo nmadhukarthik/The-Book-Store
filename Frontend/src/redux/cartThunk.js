@@ -13,9 +13,6 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async ({ userId, productId }) => {
-        // if (!userId || !productId) {
-        //     return;
-        // }
         const response = await axios.post(`${backendUrl}/cart/add`, {
             userId,
             productId,

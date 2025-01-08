@@ -3,16 +3,19 @@ import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export const Navbar = () => {
+export const Navbar = ({ updateSearchQuery }) => {
+    const dispatch = useDispatch();
     const [authUser, setAuthUser] = useAuth();
     const userCarts = useSelector((state) =>
         authUser ? state.cart.userCarts[authUser._id] || {} : {}
     );
+
     const [theme, setTheme] = useState(
         localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
     );
+
     const element = document.documentElement;
     useEffect(() => {
         if (theme === "dark") {
@@ -122,6 +125,9 @@ export const Navbar = () => {
                                     type="text"
                                     className="grow outline-none  dark:bg-slate-900 dark:text-white"
                                     placeholder="Search"
+                                    onChange={(e) =>
+                                        updateSearchQuery(e.target.value)
+                                    }
                                 />
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
