@@ -7,11 +7,9 @@ import { useSelector } from "react-redux";
 
 export const Navbar = () => {
     const [authUser, setAuthUser] = useAuth();
-    const { items: cartItems, totalQuantity } = useSelector(
-        (state) => state.cart
+    const userCarts = useSelector((state) =>
+        authUser ? state.cart.userCarts[authUser._id] || {} : {}
     );
-    console.log(authUser);
-
     const [theme, setTheme] = useState(
         localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
     );
@@ -185,7 +183,7 @@ export const Navbar = () => {
                             <Link to={"/cart"}>
                                 <h4 className="relative bg-orange-500 text-white px-3 py-2 rounded-md border-none btn hover:bg-orange-700 duration-300 cursor-pointer">
                                     Cart
-                                    {Object.keys(cartItems).length ===
+                                    {Object.keys(userCarts).length ===
                                     0 ? null : (
                                         <span
                                             className={`absolute top-[-5px] end-[-5px]  rounded-full ${
@@ -196,7 +194,7 @@ export const Navbar = () => {
                                                     : "bg-white text-black"
                                             } w-5 h-5 font-normal text-sm `}
                                         >
-                                            {totalQuantity}
+                                            {userCarts.totalQuantity}
                                         </span>
                                     )}
                                 </h4>

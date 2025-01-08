@@ -1,25 +1,35 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { addToCart, decrementQuantity } from "../redux/cartSlice";
 import { useAuth } from "../context/AuthProvider";
 import { addToCart, decrementQuantity } from "../redux/cartThunk";
+import toast from "react-hot-toast";
+// import { toast } from "react-toastify";
+
 function Cards({ item }) {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useAuth();
-    const userId = authUser._id;
-    console.log(userId);
-    if (!userId) {
-        return <div>Please login to add items to the cart.</div>;
-    }
+    const userId = authUser?._id || null;
+    // console.log(userId);
     // Ensure userCarts exists
-    const userCarts = useSelector((state) => state.cart.userCarts || {});
-    console.log("User Carts:", userCarts); // Debugging step
+    const userCarts = useSelector((state) =>
+        authUser ? state.cart.userCarts[authUser._id] || {} : {}
+    );
+    // console.log("User Carts:", userCarts); // Debugging step
     // Ensure cartItems is an array
     const cartItems = userCarts[userId]?.items || [];
-    console.log("Cart Items:", cartItems); // Debugging step
+    // console.log("Cart Items:", cartItems); // Debugging step
+
     // Find the item in the cart
     const cartItem = cartItems.find(
         (cartItem) => cartItem.productId === item._id
     );
+
+    const handleAddToCart = () => {
+        if (!userId) {
+            toast("Please log in to add items to the cart!");
+        } else {
+            dispatch(addToCart({ userId, productId: item._id }));
+        }
+    };
 
     return (
         <>
@@ -41,16 +51,7 @@ function Cards({ item }) {
                             <div className=" border-gray text-black cursor-pointer px-2 rounded-full border-[2px] hover:bg-orange-400 hover:text-white duration-200  dark:text-white">
                                 <div>
                                     {!cartItem ? (
-                                        <button
-                                            onClick={() =>
-                                                dispatch(
-                                                    addToCart({
-                                                        userId,
-                                                        productId: item._id,
-                                                    })
-                                                )
-                                            }
-                                        >
+                                        <button onClick={handleAddToCart}>
                                             +
                                         </button>
                                     ) : (
@@ -68,16 +69,7 @@ function Cards({ item }) {
                                                 -
                                             </button>
                                             <p>{cartItem?.quantity}</p>
-                                            <button
-                                                onClick={() =>
-                                                    dispatch(
-                                                        addToCart({
-                                                            userId,
-                                                            productId: item._id,
-                                                        })
-                                                    )
-                                                }
-                                            >
+                                            <button onClick={handleAddToCart}>
                                                 +
                                             </button>
                                         </div>

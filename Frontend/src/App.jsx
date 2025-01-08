@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
-
 import Home from "./Home/Home";
-//import Course from './components/Course'
 import Courses from "./Courses/course";
 import Signup from "./components/Signup";
 import { useAuth } from "./context/AuthProvider";
@@ -11,11 +9,16 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Cart from "./components/Cart";
 import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
-import Login from "./components/Login";
+import { useDispatch } from "react-redux";
+import { fetchBooks } from "./redux/thunk.js";
 
 const App = () => {
+    const dispatch = useDispatch();
     const [authUser, setAuthUser] = useAuth();
-    // console.log(authUser)
+
+    useEffect(() => {
+        dispatch(fetchBooks());
+    }, []);
 
     const GoogleWrapper = () => {
         return (

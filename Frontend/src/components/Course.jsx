@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Cards from "./Cards";
 import { Link } from "react-router-dom";
-import { fetchBooks } from "../redux/thunk";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Course = () => {
-    //  const paidBooks = list.filter((book) => book.category !== "Free")
-    const dispatch = useDispatch();
     const {
         items: books,
         loading,
         error,
     } = useSelector((state) => state.books);
-
-    useEffect(() => {
-        dispatch(fetchBooks());
-    }, []);
 
     {
         if (loading) {

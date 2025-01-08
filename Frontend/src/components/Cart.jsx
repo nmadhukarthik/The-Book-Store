@@ -29,13 +29,13 @@ const Cart = () => {
     const userCarts = useSelector((state) => state.cart.userCarts || {});
     console.log("User Carts:", userCarts); // Debugging step
 
-    const cartItems = userCarts[userId]?.items || {};
+    const cartItems = userCarts[userId]?.items || [];
     console.log("Cart Items:", cartItems); // Debugging step
 
     console.log(cartItems);
 
     const totalCartAmount = useMemo(() => {
-        return cartItems.reduce((total, cartItem) => {
+        return cartItems?.reduce((total, cartItem) => {
             const item = books.find((book) => book._id === cartItem.productId);
             return item ? total + item.price * cartItem.quantity : total;
         }, 0);

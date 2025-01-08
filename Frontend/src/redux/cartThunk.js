@@ -1,6 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+console.log(backendUrl);
 // Fetch user's cart from backend
 export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
     const response = await axios.get(`/cart/${userId}`);
@@ -11,7 +13,10 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async ({ userId, productId }) => {
-        const response = await axios.post("http://localhost:4001/cart/add", {
+        // if (!userId || !productId) {
+        //     return;
+        // }
+        const response = await axios.post(`${backendUrl}/cart/add`, {
             userId,
             productId,
         });
@@ -23,7 +28,7 @@ export const addToCart = createAsyncThunk(
 export const decrementQuantity = createAsyncThunk(
     "cart/decrementQuantity",
     async ({ userId, productId }) => {
-        const response = await axios.post("/cart/decrement", {
+        const response = await axios.post(`${backendUrl}/cart/decrement`, {
             userId,
             productId,
         });
@@ -35,7 +40,7 @@ export const decrementQuantity = createAsyncThunk(
 export const removeFromCart = createAsyncThunk(
     "cart/removeFromCart",
     async ({ userId, productId }) => {
-        const response = await axios.post("/cart/remove", {
+        const response = await axios.post(`${backendUrl}/cart/remove`, {
             userId,
             productId,
         });
@@ -45,6 +50,6 @@ export const removeFromCart = createAsyncThunk(
 
 // Clear user's cart
 export const clearCart = createAsyncThunk("cart/clearCart", async (userId) => {
-    await axios.post("/cart/clear", { userId });
+    await axios.post(`${backendUrl}/cart/clear`, { userId });
     return { userId };
 });

@@ -3,24 +3,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Cards from "./Cards";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks } from "../redux/thunk";
+import { useSelector } from "react-redux";
 
 const Freebook = () => {
-    const dispatch = useDispatch();
     const {
         items: books,
         loading,
         error,
     } = useSelector((state) => state.books);
 
-    useEffect(() => {
-        dispatch(fetchBooks());
-    }, []);
-
     const freeBooks = books.filter((item) => item.category === "Free");
-    console.log(freeBooks);
-    console.log(books);
+    // console.log(freeBooks);
+    // console.log(books);
 
     var settings = {
         dots: true,
