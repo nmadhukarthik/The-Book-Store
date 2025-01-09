@@ -10,12 +10,12 @@ function Cards({ item }) {
     const userId = authUser?._id || null;
     // console.log(userId);
     // Ensure userCarts exists
-    const userCarts = useSelector((state) =>
+    const userCart = useSelector((state) =>
         authUser ? state.cart.userCarts[authUser._id] || {} : {}
     );
     // console.log("User Carts:", userCarts); // Debugging step
     // Ensure cartItems is an array
-    const cartItems = userCarts[userId]?.items || [];
+    const cartItems = userCart.items || [];
     // console.log("Cart Items:", cartItems); // Debugging step
 
     // Find the item in the cart
