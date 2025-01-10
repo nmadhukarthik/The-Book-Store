@@ -11,6 +11,7 @@ import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useDispatch } from "react-redux";
 import { fetchBooks } from "./redux/thunk.js";
+import Login from "./components/Login.jsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -52,7 +53,22 @@ const App = () => {
                                 )
                             }
                         />
-                        <Route path="/signup" element={<GoogleWrapper />} />
+                        <Route
+                            path="/login"
+                            element={
+                                !authUser ? <Login /> : <Navigate to="/" />
+                            }
+                        />
+                        <Route
+                            path="/signup"
+                            element={
+                                !authUser ? (
+                                    <GoogleWrapper />
+                                ) : (
+                                    <Navigate to="/" />
+                                )
+                            }
+                        />
                         <Route
                             path="/cart"
                             element={

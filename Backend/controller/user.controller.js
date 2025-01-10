@@ -35,14 +35,17 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        console.log(user);
+        // console.log(user);
+        if (!user) {
+            return res.status(400).json({ message: "Ivalid email" });
+        }
         const isMatch = await bcryptjs.compare(password, user.password);
         // console.log(password)
         // console.log(user.password)
         if (!user || !isMatch) {
             return res
                 .status(400)
-                .json({ message: "Invalid username or password" });
+                .json({ message: "Invalid email or password" });
         } else {
             res.status(200).json({
                 message: "Login Successfull",
@@ -54,7 +57,7 @@ export const login = async (req, res) => {
             });
         }
     } catch (error) {
-        console.log("Error: " + error.message);
+        // console.log("Error: " + error.message);
         res.status(500).json({ message: "Interal server error" });
     }
 };

@@ -33,7 +33,11 @@ const Signup = () => {
                 if (res.data) {
                     toast.success("Signup Sucessfull");
                 }
-                navigate(from, { replace: true });
+                if (window.location.pathname === "/signup") {
+                    navigate("/login");
+                    // window.location.reload();
+                }
+                // navigate(from, { replace: true });
                 localStorage.setItem("Users", JSON.stringify(res.data.user));
             })
             .catch((err) => {
@@ -148,6 +152,7 @@ const Signup = () => {
                                 <p className="text-xl">
                                     Have Account?
                                     <Link
+                                        to="/login"
                                         className="underline text-blue-500 cursor-pointer"
                                         onClick={() =>
                                             document

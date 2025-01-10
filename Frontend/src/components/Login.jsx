@@ -1,14 +1,19 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
 
 function Login() {
-    const [authUser, setAuthUser] = useAuth();
-    const navigate = useNavigate();
+    const location = useLocation();
+    useEffect(() => {
+        if (location.pathname === "/login") {
+            document.getElementById("my_modal_3").showModal();
+        } // Automatically open modal on navigation
+    }, [location.pathname]);
 
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -31,13 +36,16 @@ function Login() {
                     // console.log(window.location.pathname)
                     document.getElementById("my_modal_3").close();
                     setTimeout(() => {
-                        if (window.location.pathname === "/signup") {
+                        if (
+                            window.location.pathname === "/login" ||
+                            window.location.pathname === "/signup"
+                        ) {
                             navigate("/");
+                            window.location.reload();
                         } else {
                             window.location.reload();
                         }
 
-                        //window.location.reload()
                         localStorage.setItem(
                             "Users",
                             JSON.stringify(res.data.user)
