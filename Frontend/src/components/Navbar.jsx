@@ -240,7 +240,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                                     // onClick={() => setIsOpen(!isOpen)}
                                     onClick={() => setIsOpen((prev) => !prev)}
                                 >
-                                    {authUser.fullname}
+                                    {authUser.fullname.toUpperCase()}
                                 </div>
 
                                 {/* Dropdown Menu */}
