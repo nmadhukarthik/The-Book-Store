@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const Navbar = ({ updateSearchQuery }) => {
-    const dispatch = useDispatch();
     const [authUser, setAuthUser] = useAuth();
     const userCarts = useSelector((state) =>
         authUser && state.cart.userCarts
@@ -17,6 +16,26 @@ export const Navbar = ({ updateSearchQuery }) => {
     const [theme, setTheme] = useState(
         localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
     );
+
+    const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef(null); // Reference for the dropdown menu
+
+    // Function to handle clicks outside the menu
+    const handleClickOutside = (event) => {
+        console.log("Clicked outside:", event.target);
+        console.log("menuRef.current:", menuRef.current); // Debugging
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            console.log("Closing dropdown");
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
 
     const element = document.documentElement;
     useEffect(() => {
@@ -211,9 +230,40 @@ export const Navbar = ({ updateSearchQuery }) => {
 
                         {/* login btn  */}
                         {authUser ? (
-                            <Logout />
+                            <div
+                                className="relative inline-block"
+                                ref={menuRef}
+                            >
+                                {/* User Info - Click to Toggle Dropdown */}
+                                <div
+                                    className="rounded-md px-3 py-2 bg-orange-500 text-white cursor-pointer"
+                                    // onClick={() => setIsOpen(!isOpen)}
+                                    onClick={() => setIsOpen((prev) => !prev)}
+                                >
+                                    {authUser.fullname}
+                                </div>
+
+                                {/* Dropdown Menu */}
+                                {isOpen && (
+                                    <div
+                                        className={
+                                            "absolute right-0 mt-2 w-38 bg-white border rounded-md shadow-lg"
+                                        }
+                                    >
+                                        <ul className="py-2">
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                                                <Logout />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
                         ) : (
-                            <div className=" ">
+                            /* <Logout />
+                                <div className="rounded-md px-3 py-2 bg-orange-500 text-white cursor-pointer">
+                                    {authUser.fullname}
+                                </div> */
+                            <div>
                                 <a
                                     className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-600 duration-300 cursor-pointer"
                                     onClick={() =>
