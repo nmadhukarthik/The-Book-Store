@@ -5,7 +5,8 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 console.log(backendUrl);
 // Fetch user's cart from backend
 export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
-    const response = await axios.get(`/cart/${userId}`);
+    const response = await axios.get(`${backendUrl}/cart/${userId}`);
+    console.log("Cart Data:", response.data);
     return response.data;
 });
 

@@ -9,7 +9,9 @@ export const Navbar = ({ updateSearchQuery }) => {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useAuth();
     const userCarts = useSelector((state) =>
-        authUser ? state.cart.userCarts[authUser._id] || {} : {}
+        authUser && state.cart.userCarts
+            ? state.cart.userCarts[authUser._id] || {}
+            : {}
     );
 
     const [theme, setTheme] = useState(

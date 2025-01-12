@@ -7,6 +7,9 @@ import { fetchCart, removeFromCart } from "../redux/cartThunk";
 const Cart = () => {
     const [authUser, setAuthUser] = useAuth();
     const userId = authUser._id;
+    const cartItem = useSelector(
+        (state) => state.cart.userCarts[userId]?.totalQuantity || []
+    );
     console.log(userId);
     if (!userId) {
         return <div>Please log in to view your cart.</div>;
@@ -15,8 +18,10 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // console.log("Fetching Cart for User");
         if (userId) {
             dispatch(fetchCart(userId));
+            console.log(cartItem);
         }
     }, [userId, dispatch]);
 
@@ -32,11 +37,13 @@ const Cart = () => {
     const cartItems = userCarts[userId]?.items || [];
     console.log("Cart Items:", cartItems); // Debugging step
 
-    console.log(cartItems);
+    // console.log(cartItems);
 
     const totalCartAmount = useMemo(() => {
         return cartItems?.reduce((total, cartItem) => {
-            const item = books.find((book) => book._id === cartItem.productId);
+            const item = books.find(
+                (book) => book._id === cartItem.productId._id
+            );
             return item ? total + item.price * cartItem.quantity : total;
         }, 0);
     }, [books, cartItems]);
@@ -58,10 +65,17 @@ const Cart = () => {
             );
         }
 
+        // console.log("Books Array:", books);
+        // console.log("Cart Items:", cartItems);
+
         const filteredBooks = cartItems
             .map((cartItem) => {
-                //cartitems is an array
-                return books.find((book) => book._id === cartItem.productId);
+                const matchedBook = books?.find(
+                    (book) => book._id === cartItem.productId._id
+                );
+                console.log("Matching:", cartItem.productId, "→", matchedBook);
+                // console.log(matchedBook);
+                return matchedBook;
             })
             .filter(Boolean); // Remove any `undefined` values
 
@@ -79,8 +93,9 @@ const Cart = () => {
                 {filteredBooks.length > 0 ? (
                     filteredBooks.map((item) => {
                         const cartItem = cartItems.find(
-                            (ci) => ci.productId === item._id
+                            (ci) => ci.productId._id === item._id
                         );
+                        // console.log(cartItem);
                         return (
                             <div
                                 key={item._id}

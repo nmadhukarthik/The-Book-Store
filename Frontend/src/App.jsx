@@ -9,20 +9,26 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Cart from "./components/Cart";
 import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "./redux/thunk.js";
 import Login from "./components/Login.jsx";
+import { fetchCart } from "./redux/cartThunk.js";
 
 const App = () => {
     const dispatch = useDispatch();
-
     const [searchQuery, setSearchQuery] = useState("");
-
     const [authUser, setAuthUser] = useAuth();
-
+    const userId = authUser ? authUser._id : null;
+    const cartItems = useSelector(
+        (state) => state.cart.userCarts[userId]?.totalQuantity || null
+    );
+    console.log(cartItems);
     useEffect(() => {
         dispatch(fetchBooks());
-    }, []);
+        if (userId) {
+            dispatch(fetchCart(userId));
+        }
+    }, [userId, cartItems, dispatch]);
 
     const GoogleWrapper = () => {
         return (

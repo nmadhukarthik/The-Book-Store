@@ -4,6 +4,7 @@ import { calculateTotalQuantity } from "../utils/cartUtils.js";
 export const getUserCart = async (req, res) => {
     try {
         const { userId } = req.params;
+        console.log("Fetching cart for userId:", userId);
         const Cart = await cart.findOne({ userId }).populate("items.productId");
         if (!Cart) return res.json({ items: [], totalQuantity: 0 });
         res.json({
@@ -11,7 +12,11 @@ export const getUserCart = async (req, res) => {
             totalQuantity: calculateTotalQuantity(Cart),
         });
     } catch (error) {
-        res.status(500).json({ message: "Internal Server Error" });
+        console.error("Error fetching cart:", error); // Log full error
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message,
+        });
     }
 };
 
