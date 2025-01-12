@@ -22,7 +22,7 @@ function Cards({ item }) {
 
     // Find the item in the cart
     const cartItem = cartItems.find(
-        (cartItem) => cartItem.productId === item._id
+        (cartItem) => cartItem.productId._id === item._id
     );
 
     const handleAddToCart = () => {
