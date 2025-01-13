@@ -99,12 +99,48 @@ export const removeFromCart = async (req, res) => {
     }
 };
 
+// export const clearCart = async (req, res) => {
+//     try {
+//         const { userId } = req.body;
+//         const updatedCart = await cart.findOneAndUpdate(
+//             { userId },
+//             { $set: { items: [], totalQuantity: 0 } }, // Empty the items and reset totalQuantity
+//             { new: true } // Return the updated document
+//         );
+//         res.json({ success: true, message: "Cart cleared", updatedCart });
+
+//         // await cart.findOneAndDelete({ userId });
+//         // res.json({ message: "Cart cleared" });
+//     } catch (error) {
+//         res.status(500).json({ message: "Error clearing cart" });
+//     }
+// };
+
 export const clearCart = async (req, res) => {
     try {
         const { userId } = req.body;
-        await cart.findOneAndDelete({ userId });
-        res.json({ message: "Cart cleared" });
+        // console.log("Received userId:", userId); // Log the received userId
+
+        const updatedCart = await cart.findOneAndUpdate(
+            { userId },
+            { $set: { items: [], totalQuantity: 0 } },
+            { new: true }
+        );
+
+        if (!updatedCart) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Cart not found" });
+        }
+
+        // console.log("Updated Cart:", updatedCart); // Log the updated cart document
+
+        res.json({ success: true, message: "Cart cleared", updatedCart });
     } catch (error) {
-        res.status(500).json({ message: "Error clearing cart" });
+        console.error("Error clearing cart:", error);
+        res.status(500).json({
+            success: false,
+            message: "Error clearing cart",
+        });
     }
 };

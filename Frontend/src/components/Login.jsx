@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useAuth } from "../context/AuthProvider";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function Login() {
     const location = useLocation();
@@ -27,7 +27,7 @@ function Login() {
         };
 
         await axios
-            .post("http://localhost:4001/user/login", userInfo)
+            .post(`${backendUrl}/user/login`, userInfo)
             // .post("https://book-store-8vla.onrender.com/user/login", userInfo)
             .then((res) => {
                 console.log(res.data);

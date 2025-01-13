@@ -6,6 +6,7 @@ import cors from "cors";
 import { router as bookRoute } from "./route/book.route.js";
 import { router as userRoute } from "./route/user.route.js";
 import { router as cartRoute } from "./route/cart.route.js";
+import { router as paymentRoute } from "./route/payment.route.js";
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(
 app.use(express.json());
 
 dotenv.config();
-
+console.log("Loaded Stripe Key:", process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 4000;
 const URI = process.env.MongoDbURI;
 
@@ -37,6 +38,7 @@ try {
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
 app.use("/cart", cartRoute);
+app.use("/payment", paymentRoute);
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);

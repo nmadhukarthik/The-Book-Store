@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import Login from './Login'
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 // import googleImage from "../assets/google.jpg"
 // import { useGoogleLogin } from "@react-oauth/google"
 // import GoogleSignup from './GoogleSignup'
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Signup = () => {
     const location = useLocation();
@@ -27,7 +27,7 @@ const Signup = () => {
 
         await axios
             // .post("https://book-store-8vla.onrender.com/user/signup", userInfo)
-            .post("http://localhost:4001/user/signup", userInfo)
+            .post(`${backendUrl}/user/signup`, userInfo)
             .then((res) => {
                 console.log(res.data);
                 if (res.data) {

@@ -22,10 +22,10 @@ export const Navbar = ({ updateSearchQuery }) => {
 
     // Function to handle clicks outside the menu
     const handleClickOutside = (event) => {
-        console.log("Clicked outside:", event.target);
-        console.log("menuRef.current:", menuRef.current); // Debugging
+        // console.log("Clicked outside:", event.target);
+        // console.log("menuRef.current:", menuRef.current); // Debugging
         if (menuRef.current && !menuRef.current.contains(event.target)) {
-            console.log("Closing dropdown");
+            // console.log("Closing dropdown");
             setIsOpen(false);
         }
     };

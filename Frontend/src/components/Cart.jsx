@@ -10,6 +10,7 @@ const Cart = () => {
     const cartItem = useSelector(
         (state) => state.cart.userCarts[userId]?.totalQuantity || []
     );
+    console.log(cartItem);
     console.log(userId);
     if (!userId) {
         return <div>Please log in to view your cart.</div>;
@@ -18,10 +19,8 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // console.log("Fetching Cart for User");
         if (userId) {
             dispatch(fetchCart(userId));
-            console.log(cartItem);
         }
     }, [userId, dispatch]);
 
@@ -48,7 +47,7 @@ const Cart = () => {
         }, 0);
     }, [books, cartItems]);
 
-    const deliveryFee = totalCartAmount === 0 ? 0 : 2;
+    const deliveryFee = 2;
 
     {
         if (loading) {
@@ -73,7 +72,7 @@ const Cart = () => {
                 const matchedBook = books?.find(
                     (book) => book._id === cartItem.productId._id
                 );
-                console.log("Matching:", cartItem.productId, "→", matchedBook);
+                // console.log("Matching:", cartItem.productId, "→", matchedBook);
                 // console.log(matchedBook);
                 return matchedBook;
             })

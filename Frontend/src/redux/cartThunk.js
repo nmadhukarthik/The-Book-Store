@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-console.log(backendUrl);
+// console.log(backendUrl);
 // Fetch user's cart from backend
 export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
     const response = await axios.get(`${backendUrl}/cart/${userId}`);
@@ -48,6 +48,7 @@ export const removeFromCart = createAsyncThunk(
 
 // Clear user's cart
 export const clearCart = createAsyncThunk("cart/clearCart", async (userId) => {
+    // console.log("Clearing cart for user:", userId);
     await axios.post(`${backendUrl}/cart/clear`, { userId });
-    return { userId };
+    return userId;
 });
