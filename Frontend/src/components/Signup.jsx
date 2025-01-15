@@ -11,7 +11,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const Signup = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location.state?.from?.pathname || "/";
+    // const from = location.state?.from?.pathname || "/";
     const {
         register,
         handleSubmit,

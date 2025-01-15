@@ -4,7 +4,7 @@ import { calculateTotalQuantity } from "../utils/cartUtils.js";
 export const getUserCart = async (req, res) => {
     try {
         const { userId } = req.params;
-        console.log("Fetching cart for userId:", userId);
+        // console.log("Fetching cart for userId:", userId);
         const Cart = await cart.findOne({ userId }).populate("items.productId");
         if (!Cart) return res.json({ items: [], totalQuantity: 0 });
         res.json({

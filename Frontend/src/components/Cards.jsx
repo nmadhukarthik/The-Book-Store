@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../context/AuthProvider";
 import { addToCart, decrementQuantity } from "../redux/cartThunk";
 import toast from "react-hot-toast";
-// import { toast } from "react-toastify";
 
 function Cards({ item }) {
     const dispatch = useDispatch();
@@ -36,9 +35,9 @@ function Cards({ item }) {
     return (
         <>
             <div className="mt-4 my-3 p-3">
-                <div className="card bg-base-100 w-94 shadow-xl hover:scale-105 duration-200 dark:bg-slate-800 dark:text-white dark:border">
+                <div className="card bg-base-100 w-94 h-[400px] shadow-xl hover:scale-105 duration-200 dark:bg-slate-800 dark:text-white dark:border">
                     <figure className="h-52 mt-5">
-                        <img src={item.image} className="h-60" alt="Shoes" />
+                        <img src={item.image} className="h-52" alt="Shoes" />
                     </figure>
                     <div className="card-body">
                         <h3 className="card-title"> {item.name} </h3>

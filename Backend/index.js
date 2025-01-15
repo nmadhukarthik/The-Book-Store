@@ -13,7 +13,8 @@ const app = express();
 //global middlewares
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: process.env.FRONTEND_URL,
+        // origin: "http://localhost:5173",
         // origin: 'https://book-store-green-xi.vercel.app',
         methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
         credentials: true, // If you need to allow cookies or HTTP authentication
@@ -22,7 +23,7 @@ app.use(
 app.use(express.json());
 
 dotenv.config();
-console.log("Loaded Stripe Key:", process.env.STRIPE_SECRET_KEY);
+// console.log("Loaded Stripe Key:", process.env.STRIPE_SECRET_KEY);
 const port = process.env.PORT || 4000;
 const URI = process.env.MongoDbURI;
 

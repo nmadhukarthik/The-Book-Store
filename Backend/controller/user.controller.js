@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 
 export const Signup = async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const { fullname, email, password } = req.body;
         const user = await User.findOne({ email });
         if (user) {
@@ -33,15 +33,14 @@ export const Signup = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
+        email = email.toLowerCase();
         const user = await User.findOne({ email });
         // console.log(user);
         if (!user) {
             return res.status(400).json({ message: "Ivalid email" });
         }
         const isMatch = await bcryptjs.compare(password, user.password);
-        // console.log(password)
-        // console.log(user.password)
         if (!user || !isMatch) {
             return res
                 .status(400)

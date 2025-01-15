@@ -10,7 +10,7 @@ function Logout() {
     console.log(authUser);
 
     const navigate = useNavigate();
-    const from = location.state?.from?.pathname || "/";
+    // const from = location.state?.from?.pathname || "/";
 
     const handleLogout = () => {
         try {
