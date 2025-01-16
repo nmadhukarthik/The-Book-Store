@@ -22,6 +22,9 @@ const Cart = () => {
         if (userId) {
             dispatch(fetchCart(userId));
         }
+        alert(
+            "Card number 4242 4242 4242 4242, Expiry is any future date, CVV is any 3-digit number"
+        );
     }, [userId, dispatch]);
 
     const {
@@ -109,10 +112,12 @@ const Cart = () => {
                                     <p>{item.name}</p>
                                 </div>
                                 <p className="p-3">${item.price}</p>
-                                <p>{cartItem?.quantity || 0}</p>
-                                <p>${item.price * (cartItem?.quantity || 0)}</p>
+                                <p className="p-3">{cartItem?.quantity || 0}</p>
+                                <p className="p-3">
+                                    ${item.price * (cartItem?.quantity || 0)}
+                                </p>
                                 <p
-                                    className="cursor-pointer"
+                                    className="cursor-pointer p-4"
                                     onClick={() =>
                                         dispatch(
                                             removeFromCart({

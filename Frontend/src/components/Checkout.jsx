@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { clearCart, fetchCart } from "../redux/cartThunk";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,6 @@ const Checkout = ({ subTotal }) => {
     const [authUser, setAuthUser] = useAuth();
     const userId = authUser?._id;
     // console.log("User ID:", userId);
-
     const dispatch = useDispatch();
     async function tokenHandler(token) {
         // console.log("Received Token:", token);

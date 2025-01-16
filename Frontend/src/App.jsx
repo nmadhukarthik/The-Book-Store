@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "./redux/thunk.js";
 import Login from "./components/Login.jsx";
 import { fetchCart } from "./redux/cartThunk.js";
+import Contact from "./components/Contact.jsx";
+import About from "./components/About.jsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -81,6 +83,8 @@ const App = () => {
                                 authUser ? <Cart /> : <Navigate to="/signup" />
                             }
                         />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/about" element={<About />} />
                     </Routes>
                     <Toaster />
                 </main>

@@ -75,12 +75,10 @@ export const Navbar = ({ updateSearchQuery }) => {
                 <Link to="/course">Course</Link>
             </li>
             <li>
-                <a href="#footer" className="scroll-smooth">
-                    Contact
-                </a>
+                <Link to="/about">About</Link>
             </li>
             <li>
-                <a href="#footer">About</a>
+                <Link to="/contact">Contact</Link>
             </li>
         </>
     );
@@ -236,7 +234,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                             >
                                 {/* User Info - Click to Toggle Dropdown */}
                                 <div
-                                    className="rounded-md px-3 py-2 bg-orange-500 text-white cursor-pointer"
+                                    className="rounded-md border-none btn px-3 py-2 bg-orange-500 text-white cursor-pointer  hover:bg-orange-700 duration-300 "
                                     // onClick={() => setIsOpen(!isOpen)}
                                     onClick={() => setIsOpen((prev) => !prev)}
                                 >
