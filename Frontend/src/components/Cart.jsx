@@ -23,7 +23,7 @@ const Cart = () => {
             dispatch(fetchCart(userId));
         }
         alert(
-            "Card number 4242 4242 4242 4242, Expiry is any future date, CVV is any 3-digit number"
+            "Payment Credentials: Card number 4242 4242 4242 4242, Expiry is any future date, CVV is any 3-digit number"
         );
     }, [userId, dispatch]);
 
