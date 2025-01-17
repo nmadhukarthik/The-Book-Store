@@ -17,7 +17,7 @@ const Contact = () => {
                     </label>
                     <input
                         type="text"
-                        className="w-full p-2 border border-gray-300 rounded-md dark:bg-slate-900 dark:text-white"
+                        className="w-full p-2 text-black bg-white border border-gray-300 rounded-md dark:bg-slate-900 dark:text-white"
                         placeholder="Your Name"
                     />
                 </div>
@@ -27,7 +27,7 @@ const Contact = () => {
                     </label>
                     <input
                         type="email"
-                        className="w-full p-2 border border-gray-300 rounded-md dark:bg-slate-900 dark:text-white"
+                        className="w-full p-2 text-black bg-white border border-gray-300 rounded-md dark:bg-slate-900 dark:text-white"
                         placeholder="Your Email"
                     />
                 </div>
@@ -36,7 +36,7 @@ const Contact = () => {
                         Message
                     </label>
                     <textarea
-                        className="w-full p-2 border border-gray-300 rounded-md dark:bg-slate-900 dark:text-white"
+                        className="w-full p-2 text-black bg-white border border-gray-300 rounded-md dark:bg-slate-900 dark:text-white "
                         rows="4"
                         placeholder="Your Message"
                     ></textarea>

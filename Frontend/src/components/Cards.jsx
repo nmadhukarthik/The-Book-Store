@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 function Cards({ item }) {
     const dispatch = useDispatch();
+
     const [authUser, setAuthUser] = useAuth();
     const userId = authUser?._id || null;
     // console.log(userId);
@@ -35,18 +36,23 @@ function Cards({ item }) {
     return (
         <>
             <div className="mt-4 my-3 p-3">
-                <div className="card bg-base-100 w-94 h-[400px] shadow-xl hover:scale-105 duration-200 dark:bg-slate-800 dark:text-white dark:border">
-                    <figure className="h-52 mt-5">
-                        <img src={item.image} className="h-52" alt="Shoes" />
+                <div className="flex flex-col card w-94 h-[500px] border shadow-xl bg-gray-100 text-black  hover:scale-105 duration-200 dark:bg-slate-800 dark:text-white dark:border">
+                    <figure className=" h-1/2 mt-5 flex justify-center items-center">
+                        {/* aspect-[16/9] overflow-hidden */}
+                        <img
+                            src={item.image}
+                            className="h-full w-full object-contain rounded-md"
+                            alt="book"
+                        />
                     </figure>
-                    <div className="card-body">
+                    <div className="card-body flex flex-col h-1/2">
                         <h3 className="card-title"> {item.name} </h3>
                         <div className="badge bg-orange-500 text-white">
                             {item.category}
                         </div>
-                        <p>{item.title}</p>
+                        <p className="">{item.title}</p>
                         <div className="card-actions justify-between">
-                            <div className="badge badge-outline">
+                            <div className="badge badge-outline p-3">
                                 $ {item.price}{" "}
                             </div>
                             <div className=" border-gray text-black cursor-pointer px-2 rounded-full border-[2px] hover:bg-orange-400 hover:text-white duration-200  dark:text-white">

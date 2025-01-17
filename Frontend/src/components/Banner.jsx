@@ -11,9 +11,9 @@ export const Banner = () => {
                         <h1 className="text-4xl font-bold ">
                             Hello, welcome{" "}
                             <span className="text-orange-500 ">
-                                {authUser?.fullname.toUpperCase() || "user"}
-                            </span>{" "}
-                            , learn something new everyday!!!
+                                {authUser?.fullname.toUpperCase() || "user"}!{" "}
+                            </span>
+                            Learn something new everyday.
                         </h1>
                         <p className="text-xl italic">
                             Books are referred to as a man’s best friend. They
