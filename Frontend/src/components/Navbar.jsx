@@ -34,7 +34,7 @@ export const Navbar = ({ updateSearchQuery }) => {
         // console.log("menuRef.current:", menuRef.current); // Debugging
         if (
             menuRef.current &&
-            !menuRef.current.contains(event.target) &&
+            !menuRef.current.contains(event.target) ||
             dropRef.current &&
             dropRef.current.contains(event.target)
         ) {
@@ -69,7 +69,7 @@ export const Navbar = ({ updateSearchQuery }) => {
 
     const navItems = (
         <>
-            <li ref={dropRef}>
+            <li>
                 <Link
                     to="/"
                     className=" hover:bg-black hover:text-white duration-300 dark:hover:bg-white dark:hover:text-black "
@@ -77,7 +77,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                     Home
                 </Link>
             </li>
-            <li ref={dropRef}>
+            <li>
                 <Link
                     to="/course"
                     className="hover:bg-black hover:text-white  duration-300 dark:hover:bg-white dark:hover:text-black "
@@ -85,7 +85,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                     Course
                 </Link>
             </li>
-            <li ref={dropRef}>
+            <li>
                 <Link
                     to="/about"
                     className="hover:bg-black hover:text-white  duration-300 dark:hover:bg-white dark:hover:text-black "
@@ -93,7 +93,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                     About
                 </Link>
             </li>
-            <li ref={dropRef}>
+            <li>
                 <Link
                     to="/contact"
                     className="hover:bg-black hover:text-white  duration-300 dark:hover:bg-white dark:hover:text-black "
@@ -140,7 +140,8 @@ export const Navbar = ({ updateSearchQuery }) => {
                             <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content rounded-box z-100 bg-white text-black dark:bg-slate-900 dark:text-white mt-3 w-24 p-2 shadow "
-                            >
+                                ref={dropRef}
+                                >
                                 {navItems}
                             </ul>
                         </div>
