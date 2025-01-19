@@ -9,7 +9,7 @@ export const Banner = () => {
                 <div className=" order-2 md:order-1 w-full md:w-1/2 mt-12 md:mt-32 ">
                     <div className="space-y-12">
                         <h1 className="text-4xl font-bold ">
-                            Hello, welcome <br />
+                            Hello, welcome
                             <span className="text-orange-500 ">
                                 {authUser?.fullname.toUpperCase() || "user"}!{" "}
                             </span>

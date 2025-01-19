@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function Logout() {
     const [authUser, setAuthUser] = useAuth();
-    console.log(authUser);
+    // console.log(authUser);
 
     const navigate = useNavigate();
     // const from = location.state?.from?.pathname || "/";

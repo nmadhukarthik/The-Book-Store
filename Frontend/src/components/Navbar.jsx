@@ -27,16 +27,19 @@ export const Navbar = ({ updateSearchQuery }) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null); // Reference for the dropdown menu
     const dropRef = useRef(null);
+    // const handleHamburgerClick = (event) => {
+    //     if(dropRef.current && dropRef.current.contains(event.target)){
+    //         setIsOpen(false)
+    //     }
+    // }
 
     // Function to handle clicks outside the menu
     const handleClickOutside = (event) => {
         // console.log("Clicked outside:", event.target);
         // console.log("menuRef.current:", menuRef.current); // Debugging
         if (
-            menuRef.current &&
-            !menuRef.current.contains(event.target) ||
-            dropRef.current &&
-            dropRef.current.contains(event.target)
+            (menuRef.current && !menuRef.current.contains(event.target)) ||
+            (dropRef.current && dropRef.current.contains(event.target))
         ) {
             // console.log("Closing dropdown");
             setIsOpen(false);
@@ -69,7 +72,7 @@ export const Navbar = ({ updateSearchQuery }) => {
 
     const navItems = (
         <>
-            <li>
+            <li onClick={() => setIsOpen(false)}>
                 <Link
                     to="/"
                     className=" hover:bg-black hover:text-white duration-300 dark:hover:bg-white dark:hover:text-black "
@@ -116,11 +119,13 @@ export const Navbar = ({ updateSearchQuery }) => {
             >
                 <div className="navbar">
                     <div className="navbar-start">
-                        <div className="dropdown">
+                        <div className="dropdown" ref={dropRef}>
                             <div
                                 tabIndex={0}
                                 role="button"
                                 className="btn btn-ghost lg:hidden"
+                                // ref={dropRef}
+                                onClick={() => setIsOpen((prev) => !prev)}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -137,13 +142,24 @@ export const Navbar = ({ updateSearchQuery }) => {
                                     />
                                 </svg>
                             </div>
-                            <ul
+
+                            {isOpen && (
+                                <ul
+                                    // ref={menuRef}
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content rounded-box z-100 bg-white text-black dark:bg-slate-900 dark:text-white mt-3 w-24 p-2 shadow"
+                                >
+                                    {navItems}
+                                </ul>
+                            )}
+
+                            {/* <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content rounded-box z-100 bg-white text-black dark:bg-slate-900 dark:text-white mt-3 w-24 p-2 shadow "
-                                ref={dropRef}
-                                >
+                                // ref={dropRef}
+                            >
                                 {navItems}
-                            </ul>
+                            </ul> */}
                         </div>
                         <Link
                             to="/"
@@ -270,7 +286,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                                 <div className="rounded-md px-3 py-2 bg-orange-500 text-white cursor-pointer">
                                     {authUser.fullname}
                                 </div> */
-                            <div>
+                            <>
                                 <a
                                     className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-600 duration-300 cursor-pointer"
                                     onClick={() =>
@@ -282,7 +298,7 @@ export const Navbar = ({ updateSearchQuery }) => {
                                     Login
                                 </a>
                                 <Login />
-                            </div>
+                            </>
                         )}
                     </div>
                 </div>

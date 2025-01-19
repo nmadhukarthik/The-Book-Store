@@ -72,7 +72,7 @@ const Signup = () => {
         <>
             <div className="flex justify-center h-screen items-center ">
                 <div className=" w-[600px]">
-                    <div className="modal-box  dark:bg-slate-700 dark:text-white">
+                    <div className="modal-box text-black bg-white dark:bg-slate-700 dark:text-white">
                         <form onSubmit={handleSubmit(onSubmit)} method="dailog">
                             {/* if there is a button in form, it will close the modal */}
                             <Link
@@ -91,7 +91,7 @@ const Signup = () => {
                                 <input
                                     type="text"
                                     placeholder="Enter your Full name"
-                                    className="w-80 px-3 py-1 border rounded-md outline-none  dark:bg-slate-900 dark:text-white"
+                                    className="w-80 px-3 py-1 border rounded-md outline-none text-black bg-white  dark:bg-slate-900 dark:text-white"
                                     {...register("fullname", {
                                         required: true,
                                     })}
@@ -111,7 +111,7 @@ const Signup = () => {
                                 <input
                                     type="email"
                                     placeholder="Enter your email"
-                                    className="w-80 px-3 py-1 border rounded-md outline-none  dark:bg-slate-900 dark:text-white"
+                                    className="w-80 px-3 py-1 border rounded-md outline-none text-black bg-white  dark:bg-slate-900 dark:text-white"
                                     {...register("email", { required: true })}
                                 />
                                 <br />
@@ -129,7 +129,7 @@ const Signup = () => {
                                 <input
                                     type="password"
                                     placeholder="Enter your password"
-                                    className="w-80 px-3 py-1 border rounded-md outline-none  dark:bg-slate-900 dark:text-white"
+                                    className="w-80 px-3 py-1 border rounded-md outline-none text-black bg-white  dark:bg-slate-900 dark:text-white"
                                     {...register("password", {
                                         required: true,
                                     })}
