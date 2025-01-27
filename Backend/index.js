@@ -7,6 +7,7 @@ import { router as bookRoute } from "./route/book.route.js";
 import { router as userRoute } from "./route/user.route.js";
 import { router as cartRoute } from "./route/cart.route.js";
 import { router as paymentRoute } from "./route/payment.route.js";
+import { router as contactRoute } from "./route/contact.route.js";
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/book", bookRoute);
 app.use("/user", userRoute);
 app.use("/cart", cartRoute);
 app.use("/payment", paymentRoute);
+app.use("/contact", contactRoute);
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
