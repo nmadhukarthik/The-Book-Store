@@ -8,6 +8,7 @@ import { router as userRoute } from "./route/user.route.js";
 import { router as cartRoute } from "./route/cart.route.js";
 import { router as paymentRoute } from "./route/payment.route.js";
 import { router as contactRoute } from "./route/contact.route.js";
+import { router as orderRoute } from "./route/myOrders.route.js";
 
 const app = express();
 
@@ -15,8 +16,6 @@ const app = express();
 app.use(
     cors({
         origin: process.env.FRONTEND_URL,
-        // origin: "http://localhost:5173",
-        // origin: 'https://book-store-green-xi.vercel.app',
         methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
         credentials: true, // If you need to allow cookies or HTTP authentication
     })
@@ -42,6 +41,7 @@ app.use("/user", userRoute);
 app.use("/cart", cartRoute);
 app.use("/payment", paymentRoute);
 app.use("/contact", contactRoute);
+app.use("/orders", orderRoute);
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
