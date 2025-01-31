@@ -10,11 +10,13 @@ import Cart from "./components/Cart";
 import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks } from "./redux/thunk.js";
+import { fetchBooks } from "./redux/bookThunk.js";
 import Login from "./components/Login.jsx";
 import { fetchCart } from "./redux/cartThunk.js";
 import Contact from "./components/Contact.jsx";
 import About from "./components/About.jsx";
+import MyOrders from "./components/MyOrders.jsx";
+import Logout from "./components/Logout.jsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -85,6 +87,8 @@ const App = () => {
                         />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/about" element={<About />} />
+                        <Route path="/myOrders" element={<MyOrders />} />
+                        <Route path="/logout" element={<Logout />} />
                     </Routes>
                     <Toaster />
                 </main>

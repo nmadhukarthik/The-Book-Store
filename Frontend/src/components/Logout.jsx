@@ -38,8 +38,12 @@ function Logout() {
 
     return (
         <div className="flex justify-center items-center space-x-5">
+            <p className="mt-40">
+                Check if you have placed the order before logging out! Stocks
+                are getting sold out soon...
+            </p>
             <button
-                className="px-3 py-2 bg-orange-500 rounded-md text-white cursor-pointer"
+                className="mt-40 px-3 py-2 bg-orange-500 rounded-md text-white cursor-pointer"
                 onClick={handleLogout}
             >
                 Logout

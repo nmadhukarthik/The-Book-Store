@@ -3,6 +3,20 @@ import myOrderModel from "../model/myOrders.model.js";
 export const placeOrder = async (req, res) => {
     try {
         const { userId, items, totalAmount } = req.body;
+
+        // Validate request body
+        if (
+            !userId ||
+            !items ||
+            !Array.isArray(items) ||
+            items.length === 0 ||
+            !totalAmount
+        ) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid order data" });
+        }
+
         const newOrder = new myOrderModel({ userId, items, totalAmount });
         await newOrder.save();
         res.status(200).json({

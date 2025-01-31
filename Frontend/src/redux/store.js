@@ -4,11 +4,12 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import booksReducer from "./bookSlice";
 import cartReducer from "./cartSlice";
+import orderReducer from "./orderSlice";
 
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ["books"], // Exclude books from persistence
+    blacklist: ["books", "orders"], // Exclude books from persistence
 };
 
 // const persistConfig = {
@@ -20,6 +21,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     cart: cartReducer,
     books: booksReducer,
+    orders: orderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

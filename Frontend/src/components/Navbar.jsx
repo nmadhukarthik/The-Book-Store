@@ -2,10 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+// import MyOrders from "./MyOrders";
+// import { SlArrowDown } from "react-icons/sl";
 
 export const Navbar = ({ updateSearchQuery }) => {
+    const navigate = useNavigate();
     const [authUser, setAuthUser] = useAuth();
     const userCarts = useSelector((state) =>
         authUser && state.cart.userCarts
@@ -264,18 +267,34 @@ export const Navbar = ({ updateSearchQuery }) => {
                                     onClick={() => setIsOpen((prev) => !prev)}
                                 >
                                     {authUser.fullname.toUpperCase()}
+                                    {/* {<SlArrowDown />} */}
                                 </div>
 
                                 {/* Dropdown Menu */}
                                 {isOpen && (
                                     <div
                                         className={
-                                            "absolute right-0 mt-2 w-38 bg-white border rounded-md shadow-lg"
+                                            "absolute right-0 mt-2 w-36 bg-white border rounded-md shadow-lg dark:text-white dark:bg-slate-900"
                                         }
                                     >
                                         <ul className="py-2">
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                                                <Logout />
+                                            <li className="px-4 py-2  cursor-pointer">
+                                                {/* <Logout /> */}
+                                                <Link to="/logout">Logout</Link>
+                                            </li>
+                                            <li className="px-4 py-2 cursor-pointer">
+                                                {/* <MyOrders /> */}
+                                                <Link to="/myOrders">
+                                                    My Orders
+                                                </Link>
+
+                                                {/* <button
+                                                    onClick={() =>
+                                                        navigate("/myOrders")
+                                                    }
+                                                >
+                                                    MyOrders
+                                                </button> */}
                                             </li>
                                         </ul>
                                     </div>
