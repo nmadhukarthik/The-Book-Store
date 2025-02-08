@@ -7,11 +7,7 @@ import { fetchCart, removeFromCart } from "../redux/cartThunk";
 const Cart = () => {
     const [authUser, setAuthUser] = useAuth();
     const userId = authUser._id;
-    const cartItem = useSelector(
-        (state) => state.cart.userCarts[userId]?.totalQuantity || []
-    );
-    console.log(cartItem);
-    console.log(userId);
+    // console.log(userId);
     if (!userId) {
         return <div>Please log in to view your cart.</div>;
     }
@@ -34,10 +30,10 @@ const Cart = () => {
     } = useSelector((state) => state.books);
 
     const userCarts = useSelector((state) => state.cart.userCarts || {});
-    console.log("User Carts:", userCarts); // Debugging step
+    // console.log("User Carts:", userCarts); // Debugging step
 
     const cartItems = userCarts[userId]?.items || [];
-    console.log("Cart Items:", cartItems); // Debugging step
+    // console.log("Cart Items:", cartItems); // Debugging step
 
     // console.log(cartItems);
 

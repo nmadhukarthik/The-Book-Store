@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { clearCart, fetchCart } from "../redux/cartThunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
+import { placeOrder } from "../redux/orderThunk";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -13,6 +14,9 @@ const Checkout = ({ subTotal }) => {
     const userId = authUser?._id;
     // console.log("User ID:", userId);
     const dispatch = useDispatch();
+    const cartItems = useSelector(
+        (state) => state.cart.userCarts[userId].items
+    );
     async function tokenHandler(token) {
         // console.log("Received Token:", token);
         try {
@@ -25,6 +29,13 @@ const Checkout = ({ subTotal }) => {
             if (response.data.success) {
                 dispatch(clearCart(userId));
                 dispatch(fetchCart(userId));
+                dispatch(
+                    placeOrder({
+                        userId,
+                        items: cartItems,
+                        totalAmount: subTotal,
+                    })
+                );
                 // console.log("Cart cleared!");
             }
         } catch (error) {
