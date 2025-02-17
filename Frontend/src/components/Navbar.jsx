@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 // import { SlArrowDown } from "react-icons/sl";
 
 export const Navbar = ({ updateSearchQuery }) => {
-    const navigate = useNavigate();
     const [authUser, setAuthUser] = useAuth();
     const userCarts = useSelector((state) =>
         authUser && state.cart.userCarts
@@ -27,7 +26,9 @@ export const Navbar = ({ updateSearchQuery }) => {
         };
     }, []);
 
-    const [isOpen, setIsOpen] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const menuRef = useRef(null); // Reference for the dropdown menu
     const dropRef = useRef(null);
     // const handleHamburgerClick = (event) => {
@@ -42,10 +43,11 @@ export const Navbar = ({ updateSearchQuery }) => {
         // console.log("menuRef.current:", menuRef.current); // Debugging
         if (
             (menuRef.current && !menuRef.current.contains(event.target)) ||
-            (dropRef.current && dropRef.current.contains(event.target))
+            (dropRef.current && !dropRef.current.contains(event.target))
         ) {
             // console.log("Closing dropdown");
-            setIsOpen(false);
+            setIsNavOpen(false);
+            setIsDropdownOpen(false);
         }
     };
 
@@ -75,7 +77,7 @@ export const Navbar = ({ updateSearchQuery }) => {
 
     const navItems = (
         <>
-            <li onClick={() => setIsOpen(false)}>
+            <li onClick={() => setIsNavOpen(false)}>
                 <Link
                     to="/"
                     className=" hover:bg-black hover:text-white duration-300 dark:hover:bg-white dark:hover:text-black "
@@ -122,13 +124,16 @@ export const Navbar = ({ updateSearchQuery }) => {
             >
                 <div className="navbar">
                     <div className="navbar-start">
-                        <div className="dropdown" ref={dropRef}>
+                        <div className="dropdown">
                             <div
                                 tabIndex={0}
                                 role="button"
                                 className="btn btn-ghost lg:hidden"
-                                // ref={dropRef}
-                                onClick={() => setIsOpen((prev) => !prev)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsNavOpen((prev) => !prev);
+                                }}
+                                ref={dropRef}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -146,9 +151,9 @@ export const Navbar = ({ updateSearchQuery }) => {
                                 </svg>
                             </div>
 
-                            {isOpen && (
+                            {isNavOpen && (
                                 <ul
-                                    // ref={menuRef}
+                                    ref={dropRef}
                                     tabIndex={0}
                                     className="menu menu-sm dropdown-content rounded-box z-100 bg-white text-black dark:bg-slate-900 dark:text-white mt-3 w-24 p-2 shadow"
                                 >
@@ -264,14 +269,17 @@ export const Navbar = ({ updateSearchQuery }) => {
                                 <div
                                     className="rounded-md border-none btn px-3 py-2 bg-orange-500 text-white cursor-pointer  hover:bg-orange-700 duration-300 "
                                     // onClick={() => setIsOpen(!isOpen)}
-                                    onClick={() => setIsOpen((prev) => !prev)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsDropdownOpen((prev) => !prev);
+                                    }}
                                 >
                                     {authUser.fullname.toUpperCase()}
                                     {/* {<SlArrowDown />} */}
                                 </div>
 
                                 {/* Dropdown Menu */}
-                                {isOpen && (
+                                {isDropdownOpen && (
                                     <div
                                         className={
                                             "absolute right-0 mt-2 w-36 bg-white border rounded-md shadow-lg dark:text-white dark:bg-slate-900"
