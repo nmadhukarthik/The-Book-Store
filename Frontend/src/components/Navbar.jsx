@@ -4,8 +4,6 @@ import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import MyOrders from "./MyOrders";
-// import { SlArrowDown } from "react-icons/sl";
 
 export const Navbar = ({ updateSearchQuery }) => {
     const [authUser, setAuthUser] = useAuth();
@@ -26,16 +24,10 @@ export const Navbar = ({ updateSearchQuery }) => {
         };
     }, []);
 
-    // const [isOpen, setIsOpen] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const menuRef = useRef(null); // Reference for the dropdown menu
     const dropRef = useRef(null);
-    // const handleHamburgerClick = (event) => {
-    //     if(dropRef.current && dropRef.current.contains(event.target)){
-    //         setIsOpen(false)
-    //     }
-    // }
 
     // Function to handle clicks outside the menu
     const handleClickOutside = (event) => {
@@ -160,14 +152,6 @@ export const Navbar = ({ updateSearchQuery }) => {
                                     {navItems}
                                 </ul>
                             )}
-
-                            {/* <ul
-                                tabIndex={0}
-                                className="menu menu-sm dropdown-content rounded-box z-100 bg-white text-black dark:bg-slate-900 dark:text-white mt-3 w-24 p-2 shadow "
-                                // ref={dropRef}
-                            >
-                                {navItems}
-                            </ul> */}
                         </div>
                         <Link
                             to="/"
@@ -268,7 +252,6 @@ export const Navbar = ({ updateSearchQuery }) => {
                                 {/* User Info - Click to Toggle Dropdown */}
                                 <div
                                     className="rounded-md border-none btn px-3 py-2 bg-orange-500 text-white cursor-pointer  hover:bg-orange-700 duration-300 "
-                                    // onClick={() => setIsOpen(!isOpen)}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setIsDropdownOpen((prev) => !prev);
@@ -295,24 +278,12 @@ export const Navbar = ({ updateSearchQuery }) => {
                                                 <Link to="/myOrders">
                                                     My Orders
                                                 </Link>
-
-                                                {/* <button
-                                                    onClick={() =>
-                                                        navigate("/myOrders")
-                                                    }
-                                                >
-                                                    MyOrders
-                                                </button> */}
                                             </li>
                                         </ul>
                                     </div>
                                 )}
                             </div>
                         ) : (
-                            /* <Logout />
-                                <div className="rounded-md px-3 py-2 bg-orange-500 text-white cursor-pointer">
-                                    {authUser.fullname}
-                                </div> */
                             <>
                                 <a
                                     className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-600 duration-300 cursor-pointer"
