@@ -50,7 +50,7 @@ const Footer = () => {
                 <aside>
                     <p>
                         Copyright © {new Date().getFullYear()} - All right
-                        reserved by ACME Industries Ltd
+                        reserved by Book Industries Ltd
                     </p>
                 </aside>
             </footer>

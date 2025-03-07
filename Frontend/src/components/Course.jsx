@@ -10,8 +10,10 @@ const Course = ({ searchQuery }) => {
         error,
     } = useSelector((state) => state.books);
 
-    const filteredBooks = books.filter((book) =>
-        book.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredBooks = books.filter(
+        (book) =>
+            book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            book.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
     {
         if (loading) {
