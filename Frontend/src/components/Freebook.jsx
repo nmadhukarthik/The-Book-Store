@@ -12,9 +12,9 @@ const Freebook = () => {
         error,
     } = useSelector((state) => state.books);
 
+    console.log(books);
     const freeBooks = books.filter((item) => item.category === "Free");
     // console.log(freeBooks);
-    // console.log(books);
 
     var settings = {
         dots: true,

@@ -9,7 +9,7 @@ const Course = ({ searchQuery }) => {
         loading,
         error,
     } = useSelector((state) => state.books);
-
+    console.log(books);
     const filteredBooks = books.filter(
         (book) =>
             book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
